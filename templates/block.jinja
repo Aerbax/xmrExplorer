@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "base.jinja" %}
+{% block content %}
+
+    <div class="columns">
+      <div class="column" style="overflow-x:auto;">
+        <table class="table is-striped is-narrow is-bordered">
+          <tbody>
+        {% if blockData %}
+        {% for key in blockData['block_header']|sort %}
+          <tr class="monoTable"><td>{{key}}</td><td>{{ blockData['block_header'][key] }}</td></tr>
+        {% endfor %}
+        {% else %}
+          <tr><td>Err!</td><td>Err!</td><td>Err!</td><td>Err!</td></tr>
+        {% endif %}
+          </tbody>
+        </table>  
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column" style="overflow-x:auto;">
+        <table class="table is-striped is-narrow is-bordered">
+          <thead>
+            <tr>
+              <th>Block Transactions</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% if blockData %}
+        {% for key in blockData['tx_hashes']|sort %}
+          <tr onclick="window.document.location='/txid/{{ key }}';" class="monoTableClickable"><td>{{key}}</td></tr>
+        {% endfor %}
+        {% else %}
+          <tr><td>Err!</td><td>Err!</td><td>Err!</td><td>Err!</td></tr>
+        {% endif %}
+          </tbody>
+        </table>  
+      </div>
+    </div>
+{% endblock %}

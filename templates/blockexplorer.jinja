@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends "base.jinja" %}
+{% block content %}
+<script type="text/javascript">
+
+$(function() {
+    $('form').each(function() {
+        $(this).find('input').keypress(function(e) {
+            // Enter pressed?
+            if(e.which == 10 || e.which == 13) {
+                this.form.submit();
+            }
+        });
+
+        $(this).find('input[type=submit]').hide();
+    });
+});
+</script>
+
+    <div class="columns">
+      <div class="column" style="overflow-x:auto;">
+       <form method='POST' action='/expsearch/'>
+        <table class="table is-striped is-narrow">
+          <thead>
+            <tr>
+              <th>Time(UTC)</th>
+              <th>Block/Height</th>
+              <th>TX Count</th>
+              <th>Hash</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% if blockList %}
+          <tr class="monoTable control"><td></td><td ><input name="blocksearch" class="input is-small is-primary submit_on_enter" type="text" placeholder="Block# Search..." ></td><td></td><td><input name="txsearch" class="input is-small is-info submit_on_enter" type="text" placeholder="Transaction Search..." ></td></tr>
+        {% for key in blockList %}
+          <tr onclick="window.document.location='/block/{{ key['block_header']['height'] }}';" class="monoTableClickable"><td>{{key['block_header']['timestamp']}}</td><td>{{ key['block_header']['height'] }}</td><td>{{ key['tx_hashes']|length }}</td><td>{{ key['block_header']['hash'] }}</td></tr>
+        {% endfor %}
+        {% else %}
+          <tr><td>Err!</td><td>Err!</td><td>Err!</td><td>Err!</td></tr>
+        {% endif %}
+          </tbody>
+        </table>  
+       </form>
+      </div>
+    </div>
+{% endblock %}

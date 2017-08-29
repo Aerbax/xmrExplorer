@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="monero, block, transaction, node map, payment id, blockexplorer, hashrate, difficulty, explorer, blockchain, xmr, txpool, blocksize">
+  <meta name="description" content="A Monero cryptocurrency block and transaction explorer.">
+  <title>SITENAME Block explorer</title>
+
+  <meta property="og:url" content="https://SITENAME.com">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Monero cryptocurrency block explorer, charts, node map, wiki, and social data">
+  <meta property="og:image" content="https://SITENAME.com/static/logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="285">
+  <meta property="og:image:height" content="43">
+  <meta property="og:description" content="Monero cryptocurrency block explorer.">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SITENAME">
+  <meta name="twitter:creator" content="@SITENAME">
+  <meta name="twitter:title" content="Monero Cryptocurrency block explorer">
+  <meta name="twitter:image" content="https://SITENAME.com/static/logo.png">
+  <meta name="twitter:description" content="Monero cryptocurrency block and transaction explorer.">
+
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <style type="text/css">
+    body, html {
+      font-family: "PT Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    }
+    pre {
+      white-space: pre-line !important;
+      width: auto !important;
+    }
+    .tag.is-dark {
+        background-color: #757575;
+        color: #fafafa;
+    }
+    .divTable{
+        display: table;
+        width: 100%;
+    }
+    .divTableRow {
+        display: table-row;
+    }
+    .divTableHeading {
+        background-color: #EEE;
+        display: table-header-group;
+    }
+    .divTableCell, .divTableHead {
+        border: 0px solid #999999;
+        display: table-cell;
+        padding: 3px 10px;
+    }
+    .divTableHeading {
+        background-color: #EEE;
+        display: table-header-group;
+        font-weight: bold;
+    }
+    .divTableFoot {
+        background-color: #EEE;
+        display: table-footer-group;
+        font-weight: bold;
+    }
+    .divTableBody {
+        display: table-row-group;
+    }
+    .dygraph-title { color: grey; }
+
+    .card-header-title { color: white; }
+    .txpoolHeader { color: white; background-color: #2196F3}
+    .hashrateHeader { color: white; background-color: #009688}
+    .blockstatsHeader { color: white; background-color: hsl(171, 100%, 41%)}
+    .txcountHeader { color: white; background-color: #FF5722}
+    .monoData{font-family: monospace; }
+    .monoTable{font-family: monospace; }
+    .monoTableClickable {font-family: monospace; cursor: pointer;}
+    .errorHeader { color: white; background-color: #EF5350}
+
+  </style>
+</head>
+<body>
+  <nav class="nav has-shadow" id="top">
+    <div class="container">
+      <div class="nav-left">
+        <a class="nav-item" href="/">
+           <!--Font is Comfortaa>-->
+          <img src="../static/logo.png" alt="SITENAME">
+        </a>
+      </div>
+      <span class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <div class="nav-right nav-menu">
+        <a class="nav-item is-tab {% if page=='index' %}is-active {% endif %}" href="/">
+          Home
+        </a>
+        <!--<a class="nav-item is-tab {% if page=='blockexplorer' %}is-active {% endif %}" href="/blockexplorer/">-->
+        <!--  Block Explorer-->
+        <!--</a>-->
+      </div>
+    </div>
+  </nav>
+<br>
+  <div class="box">
+    <div class="columns">
+            <div class="column"><span class="button is-outlined is-dark is-disabled is-large">Height: {{ blockstats['height'] }}</span></div>
+            <div class="column"><span class="button is-outlined is-dark is-disabled is-large">Difficulty: {{ blockstats['difficulty'] }}</span></div>
+            <div class="column"><span class="button is-outlined is-dark is-disabled is-large">TXPool Count: {{ blockstats['tx_pool_size'] }}</span></div>
+    </div>
+ 
+{% block content %}{% endblock %}
+<!--box-->
+</div>
+
+<script>
+$(document).ready(function() {
+
+  $('.submit_on_enter').keydown(function(event) {
+    // enter has keyCode = 13, change it if you want to use another button
+    if (event.keyCode == 13) {
+      this.form.submit();
+      return false;
+    }
+  });
+
+});
+</script>
+  <script>
+    (function() {
+        var burger = document.querySelector('.nav-toggle');
+        var menu = document.querySelector('.nav-menu');
+        burger.addEventListener('click', function() {
+            burger.classList.toggle('is-active');
+            menu.classList.toggle('is-active');
+        });
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends "base.jinja" %}
+{% block content %}
+
+
+    <div class="columns">
+      <div class="column" style="overflow-x:auto;">
+        <table class="table is-striped is-narrow is-bordered">
+          <thead>
+            <tr>
+              <th>Found in Block</th>
+              <th>Hash</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% if txData[0] %}
+          <tr class="monoTable"><td><a href=/block/{{txData[0]['block_height']}}>{{txData[0]['block_height']}}</a></td><td>{{txData[0]['tx_hash']}}</td></tr>
+        {% else %}
+          <tr><td>Err!</td><td>Err!</td><td>Err!</td><td>Err!</td></tr>
+        {% endif %}
+          </tbody>
+        </table>  
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column">
+          <article class="message is-danger">
+            <div class="message-header">
+                <p class="is-4"><b>Raw transaction:</b></p>
+            </div>
+          </article>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column" style="overflow-x:auto;">
+        {% if txData[1] %}
+          <pre class="monoData">{{txData[1]|replace("\\n", "")|wordwrap}}</pre>
+        {% else %}
+          <p class="monoData">Err!</p>
+        {% endif %}
+      </div>
+    </div>
+{% endblock %}
